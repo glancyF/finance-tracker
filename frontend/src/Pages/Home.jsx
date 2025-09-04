@@ -1,5 +1,12 @@
+import Header from "../components/layout/Header/Header.jsx";
+
 export default function Home(){
     return (
-        <div>Hello Home</div>
+        <>
+        <Header />
+            <main>
+                Poka
+            </main>
+        </>
     )
 }
