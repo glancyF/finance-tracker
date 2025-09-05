@@ -1,13 +1,11 @@
-import {User} from "lucide-react";
+
 import {pxShadow} from "./UIComponents.js"
+import user from "../../../assets/user.svg";
+import {Link} from "react-router-dom";
 export default function Profile (){
     return (
-        <button
-            aria-label="Account"
-            className="p-2 border-2 border-green-800 bg-green-100 hover:bg-[#E8FFE8]"
-            style={pxShadow("#195d1d")}
-        >
-            <User className="h-5 w-5" />
-        </button>
-    )
+        <Link to="/profile" className="flex items-center gap-3 select-none" aria-label="Profile">
+            <img src={user} alt="Profile" className="h-8 w-8" style={pxShadow("#195d1d")} />
+        </Link>
+    );
 }
