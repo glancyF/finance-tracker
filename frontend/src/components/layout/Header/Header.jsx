@@ -1,31 +1,25 @@
-import { useState, useMemo } from "react";
+import {useState, useMemo, useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import Logo from "./Logo.jsx"
-import NavLinks from "./NavLinks.jsx";
-import AuthActions from "./AuthActions.jsx";
-import Burger from "./Burger.jsx";
-import MobileMenu from "./MobileMenu.jsx";
+import { User } from "lucide-react";
+import About from "./About.jsx"
+import Profile from "./Profile.jsx"
 
-export default function Header ({isAuthed = false}){
-    const [open,setOpen] = useState(false);
-    const navigate = useNavigate();
-
-    const links = useMemo(() => ([
-        { href: "#features", label: "Features" },
-        { href: "#faq", label: "FAQ" },
-        { href: "#contacts", label: "Contacts" },
-    ]), []);
-
-    const actions = {
-        onLogin: () => navigate("temp"),
-        onRegister: () => navigate("temp"),
-        onLogout: () =>("logout api, pak navigate")
-    };
+export default function Header({isLogged = true}){
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-slate-200/60 bg-white/80 backdrop-blur-md dark:bg-green-300">
-         <div className="mx-auto flex h-16 max-w-6xl items-center  justify-between px-4">
-             sdl
-         </div>
+        <header className="sticky top-0 z-20 border-b-4 border-green-800 backdrop-blur supports-[backdrop-filter]:bg-[#22c55e]/60 bg-[#22c55e]/90">
+        <div className="mx-auto max-w-6xl px-3 sm:px-4">
+                <div className="flex h-16 items-center justify-between">
+                    <div className="flex items-center gap-6">
+                        <Logo/>
+                        <About/>
+                    </div>
+
+                    {(isLogged) && <Profile/>}
+
+                </div>
+            </div>
         </header>
+
     )
 }
