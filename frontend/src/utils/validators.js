@@ -1,4 +1,4 @@
-export const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length <= 64;
+export const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length >=1 && v.length <= 254;
 
 export const isName = (v) => {
     const name = v.trim();
@@ -12,6 +12,7 @@ export const isName = (v) => {
 export const isStrongPassword = (v) => {
     return (
         v.length >= 8 &&
+        v.length <= 32 &&
         /[a-zA-Z]/.test(v) &&
         /[A-Z]/.test(v) &&
         /\d/.test(v)
