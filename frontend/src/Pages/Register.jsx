@@ -91,6 +91,7 @@ export default function Register(){
                     <Field
                         label="Name"
                         name="name"
+                        autoComplete="name"
                         required
                         minLength={3}
                         maxLength={16}
@@ -104,6 +105,7 @@ export default function Register(){
                         label="Email"
                         name="email"
                         type="email"
+                        autoComplete="email"
                         required
                         minLength={1}
                         maxLength={254}
@@ -118,6 +120,7 @@ export default function Register(){
                             name="password"
                             minLength={8}
                             maxLength={32}
+                            autoComplete="new-password"
                             value={values.password}
                             onChange={(e) => {onChange(e); if(touched.password) validateField('password');}}
                             onBlur={(e)=>{onBlur(e); validateField("password");}}
@@ -128,6 +131,7 @@ export default function Register(){
                         <PasswordInput
                             name="password_confirmation"
                             minLength={8}
+                            autoComplete="new-password"
                             maxLength={32}
                             value={values.password_confirmation}
                             onChange={(e) => {onChange(e); if(touched.password_confirmation) validateField('password_confirmation');}}
@@ -145,7 +149,7 @@ export default function Register(){
                             required
                         />
                         <span>
-                            I agree with the therms
+                            I agree with the terms
                         </span>
                     </label>
                     {errors.agree && touched.agree && <p className="mt-1 text-sm text-red-600">{errors.agree}</p>}
