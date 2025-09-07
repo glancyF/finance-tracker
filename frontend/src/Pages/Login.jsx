@@ -52,7 +52,11 @@ export default function Login (){
             setUser(logged);
             nav("/dashboard",{replace: true});
         } catch(err) {
-            setErrors(mapServerErrors(err));
+            const mapped = mapServerErrors(err);
+            if (err.status === 401 && !mapped._common) {
+                mapped._common = "Wrong email or password";
+            }
+            setErrors(mapped);
         }
         finally{
             setLoading(false);
@@ -69,6 +73,7 @@ export default function Login (){
                     label="Email"
                     name="email"
                     type="email"
+                    autoComplete="email"
                     required
                     maxLength={254}
                     value={values.email}
@@ -80,6 +85,7 @@ export default function Login (){
                     <PasswordInput
                         name="password"
                         minLength={8}
+                        autoComplete="current-password"
                         value={values.password}
                         maxLength={32}
                         onChange={(e) => { onChange(e); if (touched.password) validateField("password"); }}
