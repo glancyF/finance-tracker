@@ -1,61 +1,106 @@
 import { useState } from "react";
+import Field from "../../components/ui/Field.jsx";
+import Button from "../../components/ui/Button.jsx";
+import Alert from "../../components/ui/Alert.jsx";
+import useForm from "../../hooks/useForm.js";
+import { isEmail, isName } from "../../utils/validators.js";
+import mapServerErrors from "../../utils/mapServerErrors.js";
+import { userApi } from "../../lib/api.js";
 import { useAuth } from "../../features/auth/AuthContext.jsx";
 
 export default function ProfileSettings(){
-    const {user,setUser} = useAuth();
-    const [values,setValues] = useState({
-       name: user?.name || "",
-       email: user?.email || "",
-    });
-    const [saving,setSaving] = useState(false);
-     const [msg,setMsg] = useState("");
+   const {user,setUser} = useAuth();
+   const {values,touched,setTouched, errors, setErrors,setValues, onChange,onBlur}= useForm({name: user?.name || "", email: user?.email || ""});
+   const [saving, setSaving] = useState(false);
+   const [ok, setOk] = useState("");
 
-     function onChange(e) {
-         const {name, value} = e.target;
-         setValues((v) => ({...v,[name]: value}))
-     }
+   function validateField(name) {
+       const v = values;
+       const e = {};
+       if(name === 'name' && !isName(v.name)) e.name ="Name: 3-16 letters, no symbols";
+       if (name === 'email' && !isEmail(v.email)) e.email ="Invalid email";
+       setErrors((prev) => ({ ...prev, ...e, ...(e[name] ? {} : { [name]: undefined }) }));
+       return e;
+   }
+   function validateAll(v){
+       const e = {};
+       if(!isName(v.name)) e.name ="Name: 3-16 letters, no symbols";
+       if(!isEmail(v.email)) e.email="Invalid email";
+       return e;
+   }
+   async function submit(e) {
+       e.preventDefault();
+       if (saving) return;
 
-     async function onSubmit (e) {
-         e.preventDefault();
-         setMsg("");
-         try{
-             setSaving(true);
-             // const { user: updated } = await userApi.updateProfile(values);
-             // setUser(updated);
-             setMsg("Saved (mock)")
-         } finally {
-             setSaving(false);
-         }
-     }
+       setOk("");
+       setErrors({});
+       setTouched({name: true, email: true});
 
-     return (
-         <form onSubmit={onSubmit} className="space-y-4 max-w-lg">
-             <h2 className="text-xl font-bold">Settings</h2>
-             <div>
-                 <label className="mb-1 block text-sm font-medium">Name</label>
-                 <input
-                     className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                     name="name"
-                     value={values.name}
-                     onChange={onChange}
-                 />
-             </div>
-             <div>
-                 <label className="mb-1 block text-sm font-medium">Email</label>
-                 <input
-                     className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                     name="email"
-                     type="email"
-                     value={values.email}
-                     onChange={onChange} />
-             </div>
-             <button
-                 className="rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700 disabled:opacity-60"
-                 disabled={saving}
-             >
-                 {saving ? "Saving..." : "Save"}
-             </button>
-             {msg && <p className="text-emerald-700">{msg}</p> }
-         </form>
-     );
+       const v = { name: values.name.trim(), email: values.email.trim().toLowerCase() };
+       const curr = {
+           name: (user?.name || "").trim(),
+           email: (user?.email || "").trim().toLowerCase(),
+       };
+       if (v.name === curr.name && v.email === curr.email) {
+           setOk("Nothing to update");
+           return;
+       }
+       const ve = validateAll(v);
+
+       if (Object.keys(ve).length) return setErrors(ve);
+       setSaving(true);
+       try {
+
+           const {user: updated} = await userApi.updateProfile({
+               name: v.name,
+               email: v.email,
+           });
+           setUser(updated)
+           setValues({ name: updated.name, email: updated.email });
+           setOk("Profile saved");
+       } catch (err) {
+           setErrors(mapServerErrors(err))
+       } finally {
+           setSaving(false);
+       }
+   }
+
+       return (
+           <form onSubmit={submit} noValidate className="space-y-4 max-w-lg">
+               <h2 className="text-xl font-bold">Settings</h2>
+               {errors._common && <Alert>{errors._common}</Alert>}
+               {ok && <Alert type="success">{ok}</Alert>}
+
+               <Field
+                   label="Name"
+                   name="name"
+                   autoComplete="name"
+                   required
+                   minLength={3}
+                   maxLength={16}
+                   value={values.name}
+                   onChange={(e)=>{ onChange(e); if (touched.name) validateField("name"); }}
+                   onBlur={(e)=>{ onBlur(e); validateField("name"); }}
+                   error={touched.name && errors.name}
+               />
+
+               <Field
+                   label="Email"
+                   name="email"
+                   type="email"
+                   autoComplete="email"
+                   required
+                   maxLength={254}
+                   value={values.email}
+                   onChange={(e)=>{ onChange(e); if (touched.email) validateField("email"); }}
+                   onBlur={(e)=>{ onBlur(e); validateField("email"); }}
+                   error={touched.email && errors.email}
+               />
+
+               <Button type="submit" disabled={saving}>
+                   {saving ? "Saving..." : "Save"}
+               </Button>
+           </form>
+       );
+
 }

@@ -46,7 +46,7 @@ export default function ProfileLayout (){
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr]">
                     <aside className="rounded-2xl border border-emerald-200 bg-white p-3">
                         <div className="mb-3 flex items-center justify-between">
-                            <p className="px-2 text-sm font-semibold text-slate-600">Menu</p>
+                            <p className="px-2 text-xl font-semibold text-slate-600">Profile</p>
                             <button
                                 onClick={onLogout}
                                 className="rounded-lg bg-red-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-red-600"
@@ -61,9 +61,9 @@ export default function ProfileLayout (){
                             {user?.role === "admin" && <Item to="/admin">Admin panel</Item>}
                         </nav>
                     </aside>
-                    <secion className="rounded-2xl border border-emerald-200 bg-white p-4 md:p-6">
+                    <section className="rounded-2xl border border-emerald-200 bg-white p-4 md:p-6">
                         <Outlet/>
-                    </secion>
+                    </section>
                 </div>
             </main>
         </>
