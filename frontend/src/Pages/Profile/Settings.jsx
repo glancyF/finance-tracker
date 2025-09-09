@@ -13,12 +13,13 @@ export default function ProfileSettings(){
    const {values,touched,setTouched, errors, setErrors,setValues, onChange,onBlur}= useForm({name: user?.name || "", email: user?.email || ""});
    const [saving, setSaving] = useState(false);
    const [ok, setOk] = useState("");
+    // const hasFieldErrors = Object.keys(errors).some(k => k !== "_common");
 
    function validateField(name) {
        const v = values;
        const e = {};
-       if(name === 'name' && !isName(v.name)) e.name ="Name: 3-16 letters, no symbols";
-       if (name === 'email' && !isEmail(v.email)) e.email ="Invalid email";
+       if(name === 'name' && !isName(v.name.trim())) e.name ="Name: 3-16 letters, no symbols";
+       if (name === 'email' && !isEmail(v.email.trim())) e.email ="Invalid email";
        setErrors((prev) => ({ ...prev, ...e, ...(e[name] ? {} : { [name]: undefined }) }));
        return e;
    }
@@ -42,7 +43,8 @@ export default function ProfileSettings(){
            email: (user?.email || "").trim().toLowerCase(),
        };
        if (v.name === curr.name && v.email === curr.email) {
-           setOk("Nothing to update");
+           setOk("");
+           setErrors({_common: "Nothing to update"});
            return;
        }
        const ve = validateAll(v);
@@ -68,8 +70,8 @@ export default function ProfileSettings(){
        return (
            <form onSubmit={submit} noValidate className="space-y-4 max-w-lg">
                <h2 className="text-xl font-bold">Settings</h2>
-               {errors._common && <Alert>{errors._common}</Alert>}
-               {ok && <Alert type="success">{ok}</Alert>}
+               {errors._common && <Alert variant="error">{errors._common}</Alert>}
+               {ok && <Alert  variant="success">{ok}</Alert>}
 
                <Field
                    label="Name"
