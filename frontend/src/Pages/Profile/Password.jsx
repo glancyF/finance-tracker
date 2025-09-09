@@ -63,6 +63,7 @@ export default function PasswordProfile() {
                 password_confirmation: values.password_confirmation,
             });
             setValues({current_password: "", password: "", password_confirmation: ""});
+            setErrors({});
             setOk("Password updated")
         } catch(err) {
             const mapped = mapServerErrors(err);
@@ -76,8 +77,8 @@ export default function PasswordProfile() {
 
     return (
         <form onSubmit={submit} noValidate className="space-y-4 max-w-lg">
-            {errors._common && <Alert>{errors._common}</Alert>}
-            {ok && <Alert type="success">{ok}</Alert>}
+            {errors._common && <Alert variant="error">{errors._common}</Alert>}
+            {ok && <Alert variant="success">{ok}</Alert>}
             <Field label="Current password" required error={touched.current_password && errors.current_password}>
                 <PasswordInput
                     name="current_password"
