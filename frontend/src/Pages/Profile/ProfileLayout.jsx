@@ -37,7 +37,7 @@ export default function ProfileLayout (){
                             </button>
                         </div>
                         <nav className="space-y-1">
-                            <Item to="/profile">Overview</Item>
+                            <Item to="/profile" exact={true}>Overview</Item>
                             <Item to="settings">Settings</Item>
                             <Item to="password">Change password</Item>
                             {user?.role === "admin" && <Item to="/admin">Admin panel</Item>}
