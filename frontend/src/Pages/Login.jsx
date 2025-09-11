@@ -8,7 +8,7 @@ import Alert from "../components/ui/Alert.jsx";
 import useForm from "../hooks/useForm.js";
 import { isEmail} from "../utils/validators.js";
 import mapServerErrors from "../utils/mapServerErrors.js";
-import { auth } from "../lib/api.js";
+import { auth } from "../lib/authApi.js";
 import { useAuth } from "../features/auth/AuthContext.jsx";
 export default function Login (){
     const nav = useNavigate();

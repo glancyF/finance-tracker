@@ -121,7 +121,6 @@ export default function Budget(){
                             validateField("name", { ...form, name: e.target.value });
                         }}
                         onBlur={() => {
-
                             if(touched.name) validateField("name");
                         }}
                         className={`w-full rounded-lg border px-3 py-2 outline-none focus:ring-2

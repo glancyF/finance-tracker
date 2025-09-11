@@ -2,7 +2,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Header from "../../components/layout/Header/Header.jsx";
 import { useAuth } from "../../features/auth/AuthContext.jsx";
-import { auth } from "../../lib/api.js";
+import { auth } from "../../lib/authApi.js";
 import Item from "../../components/ui/Item.jsx";
 
 

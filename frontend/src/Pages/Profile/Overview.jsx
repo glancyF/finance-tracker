@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../features/auth/AuthContext.jsx";
-import { auth } from "../../lib/api.js";
+import { auth } from "../../lib/authApi.js";
 
 export default function ProfileOverview() {
     const {user: ctxUser, setUser} = useAuth();

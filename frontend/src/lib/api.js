@@ -40,31 +40,5 @@ export const api = {
     del: (p, opts) => request(p, { ...opts, method: "DELETE" }),
 }
 
-export const auth = {
-    async register({ name, email, password, password_confirmation }) {
-        await csrf();
-        return api.post("/register", { name, email, password, password_confirmation });
-    },
-    async login({ email, password }) {
-        await csrf();
-        return api.post("/login", { email, password });
-    },
-    async logout() {
-        await csrf();
-        return api.post("/logout");
-    },
-    async me() {
-        return api.get("/me");
-    },
-};
 
-export const userApi = {
-    async updateProfile({ name, email }) {
-        await csrf();
-        return api.patch("/profile", { name, email });
-    },
-    async updatePassword({ current_password, password, password_confirmation }) {
-        await csrf();
-        return api.patch("/password", { current_password, password, password_confirmation });
-    },
-}
+

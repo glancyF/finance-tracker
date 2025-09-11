@@ -1,4 +1,4 @@
-import { auth } from "../../lib/api.js";
+import { auth } from "../../lib/authApi.js";
 import { useAuth } from "../../features/auth/AuthContext.jsx";
 import Header from "../../components/layout/Header/Header.jsx";
 import {Outlet, useNavigate} from "react-router-dom";
