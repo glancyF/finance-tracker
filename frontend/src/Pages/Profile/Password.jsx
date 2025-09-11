@@ -5,7 +5,7 @@ import Alert from "../../components/ui/Alert.jsx";
 import useForm from "../../hooks/useForm.js";
 import {isStrongPassword, passMatches} from "../../utils/validators.js";
 import mapServerErrors from "../../utils/mapServerErrors.js";
-import { userApi } from "../../lib/api.js";
+import { userApi } from "../../lib/userApi.js"
 
 import PasswordInput from "../../components/ui/PasswordInput.jsx";
 

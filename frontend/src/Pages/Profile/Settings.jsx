@@ -5,7 +5,7 @@ import Alert from "../../components/ui/Alert.jsx";
 import useForm from "../../hooks/useForm.js";
 import { isEmail, isName } from "../../utils/validators.js";
 import mapServerErrors from "../../utils/mapServerErrors.js";
-import { userApi } from "../../lib/api.js";
+import { userApi } from "../../lib/userApi.js";
 import { useAuth } from "../../features/auth/AuthContext.jsx";
 
 export default function ProfileSettings(){
@@ -13,7 +13,7 @@ export default function ProfileSettings(){
    const {values,touched,setTouched, errors, setErrors,setValues, onChange,onBlur}= useForm({name: user?.name || "", email: user?.email || ""});
    const [saving, setSaving] = useState(false);
    const [ok, setOk] = useState("");
-    // const hasFieldErrors = Object.keys(errors).some(k => k !== "_common");
+
 
    function validateField(name) {
        const v = values;
