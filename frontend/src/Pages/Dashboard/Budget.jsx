@@ -1,6 +1,8 @@
-import {useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import BudgetCard from "./ui/BudgetCard.jsx";
 import ModalBudget from "./ui/ModalBudget.jsx";
+import {budgetApi} from "../../lib/budgetApi.js";
+import mapServerErrors from "../../utils/mapServerErrors.js";
 const CURRENCIES = ["USD", "EUR", "CZK", "RUB"];
 export default function Budget(){
     const maxItems = 9;
@@ -11,6 +13,9 @@ export default function Budget(){
     const [errors, setErrors] = useState({});
     const [addBtnRef, setAddBtnRef] = useState(null)
     const [touched, setTouched] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [saving, setSaving] = useState(false)
+    const [loadError, setLoadError] = useState("");
 
     function validate(values) {
         const e = {};
@@ -40,25 +45,52 @@ export default function Budget(){
         setTouched({});
         setOpen(true);
     }
-    function onSubmit(e){
+
+    const loadBudgets = useCallback(async () => {
+        try{
+            setLoadError("");
+            setLoading(true);
+            const {items: list} = await budgetApi.list();
+            setItems(list);
+        }
+        catch(err){
+            setLoadError(mapServerErrors(err)._common || "Failed to load budgets");
+        }
+        finally {
+            setLoading(false);
+        }
+    },[])
+
+    useEffect(() => {
+        loadBudgets();
+    }, [loadBudgets]);
+
+    async function onSubmit(e){
         e.preventDefault();
+        setTouched({ name: true, amount: true, currency: true });
         const eMap = validate(form);
         setErrors(eMap);
         if(Object.keys(eMap).length) return;
-        const id = Math.max(0, ...items.map((i) => i.id)) + 1;
-        setItems((prev) => [
-            ...prev,
-            {
-                id,
-                name: form.name.trim(),
-                amount: Number(form.amount),
-                currency: form.currency,
-            },
-        ]);
-        setOpen(false);
+       try {
+           setSaving(true);
+           const {budget} = await budgetApi.create({
+               name: form.name.trim(),
+               amount: Number(form.amount),
+               currency: form.currency
+           });
+           await loadBudgets();
+           setOpen(false);
+           addBtnRef?.focus?.();
+       } catch(err){
+           setErrors(mapServerErrors(err))
+       }finally {
+           setSaving(false);
+       }
+
     }
     return (
         <div className="space-y-6">
+            {loadError && <div className="rounded-lg bg-red-50 text-red-700 px-3 py-2 text-sm">{loadError}</div>}
             <div className="rounded-2xl border border-emerald-200 bg-white px-4 py-3">
                 <h1 className="text-xl font-semibold text-slate-700">Budget</h1>
             </div>
