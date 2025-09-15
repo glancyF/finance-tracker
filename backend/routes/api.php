@@ -15,6 +15,6 @@ Route::middleware(['web'])->group(function () {
     Route::patch('/password', UpdatePasswordController::class)->middleware('auth:sanctum');
     Route::get('/budgets',IndexBudgetsController::class)->middleware('auth:sanctum');
     Route::post('/budgets', StoreBudgetController::class)->middleware('auth:sanctum');
-    Route::delete('/budgets/{budgets}', DestroyBudgetController::class)->middleware('auth:sanctum');
+    Route::delete('/budgets/{budget}', DestroyBudgetController::class)->middleware('auth:sanctum');
 
 });
