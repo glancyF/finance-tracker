@@ -1,13 +1,22 @@
 import { CURRENCIES } from "../../../utils/budgetConstants";
 import useBudgetForm from "../../../hooks/useBudgetForm";
+import {useState} from "react";
 
 export default function BudgetForm({initialValues,onSubmitSuccess, onCancel}){
     const {values,errors,handlers,submit} = useBudgetForm(initialValues);
-    const onSubmit = (e) =>{
+    const [submitting, setSubmitting] = useState(false);
+    const onSubmit = async (e) =>{
         e.preventDefault();
-        const res = submit();
-        if(!res.ok)return;
-        onSubmitSuccess(res.data);
+        if(submitting) return;
+        setSubmitting(true);
+        try{
+            const res = await submit();
+            if(!res.ok)return;
+            await onSubmitSuccess(res.data);
+        }finally {
+            setSubmitting(false);
+        }
+
     };
     return (
         <form onSubmit={onSubmit} className="space-y-4" noValidate>
@@ -64,7 +73,9 @@ export default function BudgetForm({initialValues,onSubmitSuccess, onCancel}){
             </div>
             <div className="mt-2 flex items-center gap-3">
                 <button type="button" onClick={onCancel} className="rounded-lg px-4 py-2 text-slate-600 hover:bg-slate-100">Cancel</button>
-                <button type="submit" className="rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700">Add</button>
+                <button type="submit" disabled={submitting} className={`rounded-lg px-4 py-2 font-semibold text-white
+             ${submitting ? "bg-emerald-400 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700"}`}
+                >Add</button>
             </div>
         </form>
     );

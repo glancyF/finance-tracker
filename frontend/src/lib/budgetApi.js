@@ -1,16 +1,21 @@
 import {api, csrf} from "./api.js";
 
 export const budgetApi = {
-    async create({ name, amount,currency }) {
+    async create({ name, amount, currency }) {
         await csrf();
-        return api.post("/budgets", { name, amount,currency });
+        const res = await api.post("/budgets", { name, amount, currency });
+        const item = res?.item ?? res?.data ?? res;
+        return { data: item };
     },
+
     async list() {
         await csrf();
-        return api.get("/budgets");
+        const res = await api.get("/budgets");
+        return { data: Array.isArray(res?.items) ? res.items : [] };
     },
+
     async remove(id) {
         await csrf();
-        return api.del(`/budgets/${id}`);
+        return await api.del(`/budgets/${id}`);
     },
-}
+};

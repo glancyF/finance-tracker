@@ -20,7 +20,12 @@ export default function useBudgetItems() {
         return () => { active = false };
     }, []);
 
-    const total = useMemo(() => items.reduce((s, i) => s + Number(i.amount || 0), 0), [items]);
+    const total = useMemo(() =>
+            (Array.isArray(items) ? items : [])
+                .filter(Boolean)
+                .reduce((s, i) => s + Number(i?.amount ?? 0), 0),
+        [items]
+    );
     const maxItems = MAX_BUDGET_ITEMS;
 
     const addItem = useCallback(async(item) =>{
