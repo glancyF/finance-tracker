@@ -8,7 +8,7 @@ import useBudgetItems from "../../hooks/useBudgetItems.js";
 import {CURRENCIES} from "../../utils/budgetConstants.js";
 
 export default function Budget() {
-    const {items, total, maxItems, addItem} = useBudgetItems([]);
+    const {items, total, maxItems, addItem,removeItem} = useBudgetItems([]);
     const [open, setOpen] = useState(false);
     const addBtnRef = useRef(null);
 
@@ -28,6 +28,7 @@ export default function Budget() {
                 items={items}
                 maxItems={maxItems}
                 onAddClick={openModal}
+                onDeleteItem={removeItem}
                 setAddBtnRef={(el) => (addBtnRef.current = el)}
             />
 
