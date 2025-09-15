@@ -46,4 +46,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function budgets() {
+        return $this->hasMany(\App\Models\Budget::class);
+    }
 }
