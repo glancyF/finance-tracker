@@ -12,6 +12,7 @@ export function validateBudget(values) {
     const num = Number(amountRaw);
     if(amountRaw === "" || Number.isNaN(num)) e.amount = "Enter the number";
     else if(num<0) e.amount ="Must be ≥ 0";
+    if(num>999_999_999_999.99) e.amount ="Too high";
     if (!values.currency) e.currency = "Choose the currency";
     return e;
 }
