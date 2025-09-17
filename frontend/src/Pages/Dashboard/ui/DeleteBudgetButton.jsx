@@ -19,7 +19,7 @@ export default function DeleteBudgetButton({id,onDelete}) {
             type="button"
             onClick={handleClick}
             disabled={isDeleting}
-            className="absolute top-2 right-2 text-slate-400 hover:text-red-600"
+            className="text-slate-400 hover:text-red-600"
             title="Delete budget"
             aria-label="Delete budget"
         >

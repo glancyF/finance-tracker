@@ -8,11 +8,23 @@ import useBudgetItems from "../../hooks/useBudgetItems.js";
 import {CURRENCIES} from "../../utils/budgetConstants.js";
 
 export default function Budget() {
-    const {items, total, maxItems, addItem,removeItem} = useBudgetItems([]);
+    const {items, total, maxItems, addItem,removeItem,updateItem} = useBudgetItems([]);
     const [open, setOpen] = useState(false);
     const addBtnRef = useRef(null);
+    const [mode, setMode] = useState("create");
+    const [editing, setEditing] = useState(null);
 
-    const openModal = useCallback(() => setOpen(true), []);
+    const openCreate = useCallback(() => {
+        setMode("create");
+        setEditing(null);
+        setOpen(true);
+    }, []);
+
+    const openEdit = useCallback((item) => {
+        setMode("edit");
+        setEditing(item);
+        setOpen(true);
+    }, []);
     const closeModal = useCallback(() => {
         setOpen(false);
         if (addBtnRef.current && typeof addBtnRef.current.focus === 'function') {
@@ -27,21 +39,38 @@ export default function Budget() {
             <BudgetList
                 items={items}
                 maxItems={maxItems}
-                onAddClick={openModal}
+                onAddClick={openCreate}
+                onEditItem={openEdit}
                 onDeleteItem={removeItem}
                 setAddBtnRef={(el) => (addBtnRef.current = el)}
             />
 
             <BudgetSummary total={total} maxItems={maxItems}/>
-            <BudgetDialog open={open} onClose={closeModal} title="Add the budget">
+            <BudgetDialog open={open} onClose={closeModal} title={mode === "edit" ? "Edit budget" : "Add the budget"}>
+                {mode === "create" ? (
                 <BudgetForm
+                    mode="create"
+                    fields={{name:true,amount:true,currency:true}}
                     initialValues={{name: "", amount: "", currency: CURRENCIES[0]}}
                     onSubmitSuccess={async (data) => {
                         await addItem(data);
                         closeModal();
                     }}
                     onCancel={closeModal}
-                />
+
+                />) : (
+                    <BudgetForm
+                        mode="edit"
+                        fields={{ name: true, amount: false, currency: false }}
+                        initialValues={{ name: editing?.name ?? "" }}
+                        original={{ name: editing?.name ?? "" }}
+                        onSubmitSuccess={async (data) => {
+                            await updateItem(editing.id, data);
+                            closeModal();
+                        }}
+                        onCancel={closeModal}
+                    />
+                )}
             </BudgetDialog>
         </div>
     );
