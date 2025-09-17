@@ -41,12 +41,9 @@ export default function ProfileOverview() {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="rounded-xl border border-slate-200 p-4">
                         <p className="text-sm text-slate-500">Coming soon</p>
-                        <p className="font-medium">Monthly budget widget</p>
+                        <p className="font-medium">Set yours prefer currency</p>
                     </div>
-                    <div className="rounded-xl border border-slate-200 p-4">
-                        <p className="text-sm text-slate-500">Coming soon</p>
-                        <p className="font-medium">Recent transactions</p>
-                    </div>
+
                 </div>
             </div>
         </div>
