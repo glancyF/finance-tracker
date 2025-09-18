@@ -21,6 +21,6 @@ export const budgetApi = {
 
     async updateName(id,name) {
         await csrf();
-        return await api.patch(`/budgets/${id}`,name);
+        return await api.patch(`/budgets/${id}`,{name});
     }
 };

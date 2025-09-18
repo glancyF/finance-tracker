@@ -4,7 +4,10 @@ use App\Http\Controllers\Profile\UpdatePasswordController;
 use App\Http\Controllers\Profile\UpdateProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\{RegisterController,LoginController,LogoutController,MeController};
-use App\Http\Controllers\Budget\{StoreBudgetController,IndexBudgetsController,DestroyBudgetController};
+use App\Http\Controllers\Budget\{StoreBudgetController,
+    IndexBudgetsController,
+    DestroyBudgetController,
+    UpdateBudgetController};
 
 Route::middleware(['web'])->group(function () {
     Route::post('/register', RegisterController::class)->middleware('guest');
@@ -16,5 +19,5 @@ Route::middleware(['web'])->group(function () {
     Route::get('/budgets',IndexBudgetsController::class)->middleware('auth:sanctum');
     Route::post('/budgets', StoreBudgetController::class)->middleware('auth:sanctum');
     Route::delete('/budgets/{budget}', DestroyBudgetController::class)->middleware('auth:sanctum');
-
+    Route::patch('/budgets/{budget}', UpdateBudgetController::class)->middleware('auth:sanctum');
 });

@@ -16,8 +16,8 @@ class StoreBudgetController extends Controller
     public function __invoke(StoreBudgetRequest $request)
     {
         $user = $request->user();
-        $limit = 9;
-        return DB::transaction(function () use ($request, $user, $limit) {
+        return DB::transaction(function () use ($request, $user,) {
+            $limit = 9;
             DB::table('users')->where('id', $user->id)->lockForUpdate()->first();
             $count = $user->budgets()->count();
             if($count >= $limit) {

@@ -37,7 +37,7 @@ class BudgetPolicy
      */
     public function update(User $user, Budget $budget): bool
     {
-        return false;
+        return $budget->user_id === $user->id;
     }
 
     /**
