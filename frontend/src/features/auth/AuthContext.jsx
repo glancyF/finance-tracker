@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
 import { auth } from "../../lib/authApi.js";
 
 const Ctx = createContext({ user: null, setUser: () => {}, logout: () => {} });
@@ -8,29 +8,25 @@ export function AuthProvider({children}) {
     const [loading,setLoading] = useState(true);
 
     useEffect(() => {
-        let alive = true;
+        const ctrl = new AbortController();
+
         (async () => {
             try {
-                const data = await auth.me();
-                if (alive) setUser(data);
+                const data = await auth.me({signal: ctrl.signal});
+                setUser(data);
             } catch {
-                if (alive) setUser(null);
+                 setUser(null);
             } finally {
-                if (alive) setLoading(false);
+                 setLoading(false);
             }
         })();
-        return () => { alive = false; };
+        return () => ctrl.abort();
     }, []);
 
-    async function logout(){
-        try{await auth.logout();} finally {
-            setUser(null);
-        }
-    }
-    return(
-        <Ctx.Provider value={{ user, setUser, logout, loading }}>
-            {children}
-        </Ctx.Provider>
-    );
+    const logout = useCallback(async () => {
+        try { await auth.logout(); } finally { setUser(null); }
+    }, []);
+    const value = useMemo(() => ({ user, setUser, logout, loading }), [user, logout, loading]);
+    return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 export const useAuth = () => useContext(Ctx);

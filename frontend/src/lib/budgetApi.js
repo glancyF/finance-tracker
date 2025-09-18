@@ -18,4 +18,9 @@ export const budgetApi = {
         await csrf();
         return await api.del(`/budgets/${id}`);
     },
+
+    async updateName(id,name) {
+        await csrf();
+        return await api.patch(`/budgets/${id}`,{name});
+    }
 };

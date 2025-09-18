@@ -6,7 +6,7 @@ return [
     'allowed_methods' => ['*'],
 
     // укажи адрес фронта на Vite
-    'allowed_origins' => ['http://localhost:5173'],
+    'allowed_origins' => ['http://localhost:5173','http://localhost:5173'],
 
     'allowed_origins_patterns' => [],
 

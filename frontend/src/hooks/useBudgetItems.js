@@ -48,6 +48,13 @@ export default function useBudgetItems() {
         }
     }, []);
 
+    const updateItem = useCallback(async(id,patch) => {
+        if(typeof patch?.name === 'string'){
+            await budgetApi.updateName(id,patch.name);
+        }
+        setItems(prev => prev.map(i => (i.id === id ? { ...i, ...patch } : i)));
+    },[]);
 
-    return { items, total, maxItems, addItem, removeItem, loading };
+
+    return { items, total, maxItems, addItem, removeItem, loading, updateItem };
 }

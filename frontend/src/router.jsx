@@ -1,5 +1,7 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./features/auth/AuthContext.jsx";
+import RequireAuth from "./routes/RequireAuth.jsx";
+import PublicOnly from "./routes/PublicOnly.jsx";
 import Home from "./pages/Home.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
@@ -14,14 +16,15 @@ function Router (){
         <AuthProvider>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/profile" element={<ProfileLayout />}>
+                <Route path="/register" element={<PublicOnly><Register /></PublicOnly>} />
+                <Route path="/login" element={<PublicOnly><Login /></PublicOnly>} />
+
+                <Route path="/profile" element={<RequireAuth><ProfileLayout /></RequireAuth>}>
                     <Route index element={<ProfileOverview />} />
                     <Route path="settings" element={<ProfileSettings />} />
                     <Route path="password" element={<ProfilePassword />} />
                 </Route>
-                <Route path="/dashboard" element={<Dashboard />}>
+                <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>}>
                     <Route index element={<Budget />} />
                 </Route>
 

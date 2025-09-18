@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../features/auth/AuthContext.jsx"
 
 export default function Header(){
-   const {user} = useAuth();
+   const {user,loading} = useAuth();
 
 
     return (
@@ -19,8 +19,7 @@ export default function Header(){
                         <NavLinks/>
 
                     </div>
-                    {user ? <Profile/> : <Login/>}
-
+                    {loading ? null : (user ? <Profile/> : <Login/>)}
                 </div>
             </div>
         </header>
