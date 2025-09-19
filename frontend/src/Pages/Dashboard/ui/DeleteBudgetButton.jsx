@@ -22,6 +22,7 @@ export default function DeleteBudgetButton({id,onDelete}) {
             className="text-slate-400 hover:text-red-600"
             title="Delete budget"
             aria-label="Delete budget"
+            data-action="delete"
         >
             <XMarkIcon className="h-5 w-5" />
         </button>

@@ -6,7 +6,8 @@ export default function EditBudgetButton({id, onEdit,name}) {
             onClick={() => onEdit?.({ id, name })}
             className="rounded p-1 text-slate-400 hover:text-emerald-700"
             aria-label="Edit name"
-            title="Edit name">
+            title="Edit name"
+            data-action="edit">
             <AiTwotoneEdit className="h-5 w-5"/>
         </button>
     )
