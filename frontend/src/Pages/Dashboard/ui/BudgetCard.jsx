@@ -1,9 +1,21 @@
 
 import EditBudgetButton from "./EditBudgetButton.jsx";
 import DeleteBudgetButton from "./DeleteBudgetButton.jsx";
+import {Link, useNavigate} from "react-router-dom";
 export default function BudgetCard({id,name,amount,currency="USD", onDelete,onEditItem}) {
+     const nav = useNavigate();
     return (
-        <div className="relative rounded-2xl border border-emerald-200 bg-white p-4 shadow-sm">
+
+        <div className="relative rounded-2xl border border-emerald-200 bg-white p-4 shadow-sm"
+             onClick={(e) => {
+                 if (
+                     e.target.closest("[data-action=delete]") ||
+                     e.target.closest("[data-action=edit]")
+                 )
+                     return;
+                 nav(`/dashboard/${id}`);
+             }}
+        >
             <div className="absolute top-2 right-2 flex flex-col items-end space-y-1">
                 <DeleteBudgetButton id={id} onDelete={onDelete}/>
                 <EditBudgetButton id={id} name={name} onEdit={onEditItem}/>
@@ -13,6 +25,7 @@ export default function BudgetCard({id,name,amount,currency="USD", onDelete,onEd
             <p className="mt-1 text-2xl font-bold text-emerald-700">
                 {new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(amount)} {currency}
             </p>
+
         </div>
     );
 }

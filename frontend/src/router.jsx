@@ -11,6 +11,7 @@ import ProfilePassword from "./Pages/Profile/Password.jsx";
 import ProfileSettings from "./Pages/Profile/Settings.jsx";
 import ProfileOverview from "./Pages/Profile/Overview.jsx";
 import Budget from "./Pages/Dashboard/Budget.jsx";
+import BudgetTransactions from "./Pages/Dashboard/BudgetTransactions.jsx";
 function Router (){
     return (
         <AuthProvider>
@@ -26,6 +27,7 @@ function Router (){
                 </Route>
                 <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>}>
                     <Route index element={<Budget />} />
+                    <Route path="/dashboard/:id" element={<BudgetTransactions/>}/>
                 </Route>
 
                 <Route path="*" element={<Navigate to="/" replace />} />
