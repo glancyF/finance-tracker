@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Budget;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class BudgetPolicy
+class TransactionPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,9 +19,9 @@ class BudgetPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Budget $budget): bool
+    public function view(User $user, Transaction $transaction): bool
     {
-        return true;
+        return $transaction->user_id === $user->id;
     }
 
     /**
@@ -35,23 +35,23 @@ class BudgetPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Budget $budget): bool
+    public function update(User $user, Transaction $transaction): bool
     {
-        return $budget->user_id === $user->id;
+        return $transaction->user_id === $user->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Budget $budget): bool
+    public function delete(User $user, Transaction $transaction): bool
     {
-        return $budget->user_id === $user->id;
+        return $transaction->user_id === $user->id;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Budget $budget): bool
+    public function restore(User $user, Transaction $transaction): bool
     {
         return false;
     }
@@ -59,7 +59,7 @@ class BudgetPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Budget $budget): bool
+    public function forceDelete(User $user, Transaction $transaction): bool
     {
         return false;
     }
