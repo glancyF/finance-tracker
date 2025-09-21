@@ -29,8 +29,6 @@ export default function BudgetTransactions() {
                 const res = await budgetApi.list();
                 const found = (res.data || []).find(b => Number(b.id) === budgetId) || null;
                 if(active) setBudget(found);
-
-
             }catch{ if (active) setBudget(null)} finally {
                 if (active) setBudgetLoading(false);
             }
