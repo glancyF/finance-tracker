@@ -26,7 +26,7 @@ class UpdateTransactionRequest extends FormRequest
             'amount'        => ['sometimes','required','numeric','gt:0','max:999999999999.99'],
             'date'          => ['sometimes','required','date_format:Y-m-d'],
             'category_id'   => ['nullable','integer','exists:categories,id'],
-            'category_name' => ['nullable','string','max:64','regex:/^[\p{L}\p{M}\p{N}\s-]+$/u'],
+            'category_name' => ['nullable','string','max:32','regex:/^[\p{L}\p{M}\p{N}\s-]+$/u'],
             'comment'       => ['nullable','string','max:255','regex:/^[\p{L}\p{M}\p{N}\s-]+$/u'],
         ];
     }

@@ -20,14 +20,14 @@ export default function TransactionList ({items,currency="USD",onEdit,onDelete,l
                 {items.map(t=>(
                     <tr key={t.id} className="border-t">
                         <td className="px-4 py-2">{t.date}</td>
-                        <td className="px-4 py-2">{t.category?.name || "—"}</td>
+                        <td className="px-4 py-2 break-words max-w-[16ch]">{t.category?.name || "—"}</td>
                         <td className="px-4 py-2">
                             {t.type === "income" ? <span className="text-emerald-700">↑ income</span> : <span className="text-red-700">↓ expense</span>}
                         </td>
                         <td className="px-4 py-2 text-right">
                             {new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(t.amount)} {currency}
                         </td>
-                        <td className="px-4 py-2">{t.comment || "—"}</td>
+                        <td className="px-4 py-2 break-words max-w-[32ch]">{t.comment || "—"}</td>
                         <td className="px-4 py-2 text-right">
                             <button className="mr-2 text-emerald-700 hover:underline" onClick={() => onEdit(t)}>Edit</button>
                             <button className="text-red-700 hover:underline" onClick={() => onDelete(t.id)}>Delete</button>
