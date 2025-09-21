@@ -21,8 +21,8 @@ export default function Dashboard(){
                     <p className="px-2 text-xl font-semibold text-slate-600">Dashboard sections</p>
                 </div>
                 <nav className="space-y-1 flex-1">
-                    <Item to="/dashboard" exact={true}>Budget</Item>
-                    <Item to="*">Test</Item>
+                    <Item to="/dashboard" budgetGroup>Budget</Item>
+                    <Item to="/dashboard/statistics" exact>Stats</Item>
                     <Item to="*">Test</Item>
                 </nav>
 
