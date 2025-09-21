@@ -5,7 +5,7 @@ export default function TransactionList ({items,currency="USD",onEdit,onDelete,l
 
     return(
         <div className="overflow-x-auto rounded-2xl border border-emerald-200 bg-white">
-            <table>
+            <table className="min-w-full table-fixed border-separate border-spacing-0">
                 <thead className="bg-emerald-50 text-slate-700">
                 <tr>
                     <th className="px-4 py-2 text-left">Date</th>
