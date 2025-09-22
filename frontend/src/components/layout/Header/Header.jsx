@@ -6,7 +6,7 @@ import Login from "./Login.jsx";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../features/auth/AuthContext.jsx"
 
-export default function Header(){
+export default function Header({title = "Main"}){
    const {user,loading} = useAuth();
 
 
@@ -17,7 +17,7 @@ export default function Header(){
                     <div className="flex items-center gap-6">
                         <Logo/>
                         <NavLinks/>
-
+                        <title>{title}</title>
                     </div>
                     {loading ? null : (user ? <Profile/> : <Login/>)}
                 </div>

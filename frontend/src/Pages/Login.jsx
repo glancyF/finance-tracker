@@ -64,7 +64,7 @@ export default function Login (){
     }
     return (
         <>
-        <Header/>
+        <Header title="Login"/>
         <main className="mx-auto max-w-md px-4 py-10">
             <h1 className="text-2xl font-bold">Login</h1>
             <form onSubmit={submit} noValidate className="mt-6 space-y-4">

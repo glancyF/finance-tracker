@@ -14,7 +14,7 @@ export default function Dashboard(){
 
     return (
         <>
-        <Header/>
+        <Header title="Dashboard"/>
         <main className="mx-auto max-w-7xl py-8 grid grid-cols-[240px_1fr] gap-6">
             <aside className="sticky top-20 h-[calc(100vh-5rem)] rounded-2xl border border-emerald-200 bg-white p-3 flex flex-col">
                 <div className="mb-3 flex items-center justify-between">
