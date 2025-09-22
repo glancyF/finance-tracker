@@ -8,12 +8,11 @@ import useBudgetItems from "../../hooks/useBudgetItems.js";
 import {CURRENCIES} from "../../utils/budgetConstants.js";
 
 export default function Budget() {
-    const {items, total, maxItems, addItem,removeItem,updateItem} = useBudgetItems([]);
+    const {items, total, maxItems, addItem,removeItem,updateItem,loading} = useBudgetItems([]);
     const [open, setOpen] = useState(false);
     const addBtnRef = useRef(null);
     const [mode, setMode] = useState("create");
     const [editing, setEditing] = useState(null);
-
     const openCreate = useCallback(() => {
         setMode("create");
         setEditing(null);
@@ -31,6 +30,10 @@ export default function Budget() {
             addBtnRef.current.focus();
         }
     }, [])
+
+    if(loading) {
+        return (<div>Loading...</div>)
+    }
 
     return (
         <div className="space-y-6">

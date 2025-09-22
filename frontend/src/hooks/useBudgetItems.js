@@ -5,6 +5,7 @@ export default function useBudgetItems() {
 
     const [items,setItems] = useState([]);
     const [loading,setLoading] = useState(true);
+
     useEffect(() => {
         let active = true;
         (async () => {

@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import useTransactions from "../../hooks/useTransactions.js";
 import {useEffect, useMemo, useState} from "react";
 import {budgetApi} from "../../lib/budgetApi.js";
@@ -15,16 +15,23 @@ export default function BudgetTransactions() {
     const [budget,setBudget] = useState(null);
     const [open,setOpen] = useState(false);
     const [editItem, setEditItem] = useState(null);
+    const [budgetLoading, setBudgetLoading] = useState(true);
+    const isValidNumericId = Number.isInteger(budgetId) && budgetId > 0;
+    if (!isValidNumericId) {
+        return <Navigate to="/dashboard" replace />;
+    }
 
     useEffect(() => {
         let active = true;
+        setBudgetLoading(true);
         (async () =>{
             try{
                 const res = await budgetApi.list();
                 const found = (res.data || []).find(b => Number(b.id) === budgetId) || null;
                 if(active) setBudget(found);
-
-            }catch{}
+            }catch{ if (active) setBudget(null)} finally {
+                if (active) setBudgetLoading(false);
+            }
         })();
         return () => {active =false};
     }, [budgetId]);
@@ -38,7 +45,10 @@ export default function BudgetTransactions() {
         }
         return { income: inc, expense: exp, balance: inc - exp };
     }, [items]);
-
+    if(budgetLoading) { return (<div>Loading...</div>)}
+    if(!budget) {
+        return <Navigate to='/dashboard' replace/>
+    }
     return(
         <div className="mx-auto max-w-5xl px-4 py-6 space-y-6">
             {error && <Alert variant="error">{error}</Alert>}

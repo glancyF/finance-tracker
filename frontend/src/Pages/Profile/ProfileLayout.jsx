@@ -23,7 +23,7 @@ export default function ProfileLayout (){
     }
     return (
         <>
-        <Header/>
+        <Header title="Profile"/>
             <main className="mx-auto max-w-6xl px-4 py-8">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-[240px_1fr]">
                     <aside className="rounded-2xl border border-emerald-200 bg-white p-3">

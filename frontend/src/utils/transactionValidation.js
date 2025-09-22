@@ -22,7 +22,7 @@ export function Validation(values = {}) {
     } else if (hasName) {
         const name = values.category_name.trim();
         if (!NAME_RE.test(name)) e.category = "Invalid symbols";
-        else if (name.length > 64) e.category = "Too long";
+        else if (name.length > 32) e.category = "Too long";
     }
 
     if(comment) {

@@ -81,7 +81,7 @@ export default function Register(){
 
     return (
         <>
-            <Header/>
+            <Header title="Registration"/>
             <main className="mx-auto max-w-md px-4 py-10">
                 <h1 className="text-2xl font-bold">Registration</h1>
                 <form onSubmit={submit} noValidate className="mt-6 space-y-4">

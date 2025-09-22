@@ -11,7 +11,7 @@ export default function Home(){
 
     return (
         <>
-            <Header />
+            <Header title="Home" />
             <main className="pt-8">
                 <h1>Landing page</h1>
             </main>
