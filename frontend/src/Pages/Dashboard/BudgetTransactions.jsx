@@ -6,6 +6,7 @@ import Alert from "../../components/ui/Alert.jsx";
 import Button from "../../components/ui/Button.jsx";
 import TransactionList from "./budgetTransactions/TransactionList.jsx";
 import TransactionDialog from "./budgetTransactions/TransactionDialog.jsx";
+import Spinner from "../../components/ui/Spinner.jsx";
 
 
 export default function BudgetTransactions() {
@@ -45,7 +46,7 @@ export default function BudgetTransactions() {
         }
         return { income: inc, expense: exp, balance: inc - exp };
     }, [items]);
-    if(budgetLoading) { return (<div>Loading...</div>)}
+    if(budgetLoading) { return (<div><Spinner/></div>)}
     if(!budget) {
         return <Navigate to='/dashboard' replace/>
     }
