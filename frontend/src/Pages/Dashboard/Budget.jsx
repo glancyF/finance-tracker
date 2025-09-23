@@ -6,6 +6,7 @@ import BudgetDialog from "./budget/BudgetDialog.jsx";
 import BudgetForm from "./budget/BudgetForm.jsx";
 import useBudgetItems from "../../hooks/useBudgetItems.js";
 import {CURRENCIES} from "../../utils/budgetConstants.js";
+import Spinner from "../../components/ui/Spinner.jsx";
 
 export default function Budget() {
     const {items, total, maxItems, addItem,removeItem,updateItem,loading} = useBudgetItems([]);
@@ -32,7 +33,7 @@ export default function Budget() {
     }, [])
 
     if(loading) {
-        return (<div>Loading...</div>)
+        return (<div><Spinner/></div>)
     }
 
     return (

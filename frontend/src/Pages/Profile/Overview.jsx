@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../features/auth/AuthContext.jsx";
 import { auth } from "../../lib/authApi.js";
+import Spinner from "../../components/ui/Spinner.jsx";
 
 export default function ProfileOverview() {
     const {user: ctxUser, setUser} = useAuth();
@@ -13,7 +14,7 @@ export default function ProfileOverview() {
            setLocalUser(null);
        });
     },[setUser]);
-    if(!user) return <p>Loading..</p>
+    if(!user) return <p><Spinner/></p>
 
     return (
         <div className="space-y-6">
