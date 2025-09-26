@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'currency' => [
+        'url'=>'https://api.apilayer.com/exchangerates_data/latest',
+        'key'=>env('CURRENCY_API_KEY'),
+    ]
+
 ];

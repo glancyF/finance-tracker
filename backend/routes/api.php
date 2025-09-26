@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Profile\UpdatePasswordController;
 use App\Http\Controllers\Profile\UpdateProfileController;
+use App\Http\Controllers\Summary\ShowController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\{RegisterController,LoginController,LogoutController,MeController};
 use App\Http\Controllers\Budget\{StoreBudgetController,
@@ -27,4 +28,6 @@ Route::middleware(['web'])->group(function () {
     Route::delete('/transactions/{transaction}', \App\Http\Controllers\Transaction\DestroyController::class);
 
     Route::get('/budgets/{budget}/categories', \App\Http\Controllers\Category\IndexController::class);
+
+    Route::get('/summary', ShowController::class)->middleware('auth:sanctum');
 });

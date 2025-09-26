@@ -16,7 +16,7 @@ class UpdateProfileController extends Controller
         $user = $request->user();
         $user->update($request->validated());
         return response()->json([
-           'user' =>$user->only('id','name','email','role'),
+           'user' =>$user->only('id','name','email','default_currency','role'),
         ]);
     }
 }
