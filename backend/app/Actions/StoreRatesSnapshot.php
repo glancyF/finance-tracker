@@ -4,7 +4,7 @@ namespace App\Actions;
 
 use App\Models\ExchangeRate;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+
 
 class StoreRatesSnapshot
 {
