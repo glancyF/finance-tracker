@@ -38,11 +38,11 @@ export default function ProfileOverview() {
                 </div>
             </div>
             <div>
-                <h3 className="mb-3 text-lg font-semibold">Your Highlights</h3>
+                <h3 className="mb-3 text-lg font-semibold">Your prefer currency</h3>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div className="rounded-xl border border-slate-200 p-4">
-                        <p className="text-sm text-slate-500">Coming soon</p>
-                        <p className="font-medium">Set yours prefer currency</p>
+                        <p className="text-sm text-slate-500"></p>
+
                     </div>
 
                 </div>
