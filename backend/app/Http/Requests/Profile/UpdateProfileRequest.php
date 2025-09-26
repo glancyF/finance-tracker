@@ -25,6 +25,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name' => ['required', 'string','min:3','max:16','regex:/^\p{L}+$/u'],
             'email' => ['required', 'email','min:1','max:254', Rule::unique('users','email')->ignore($this->user()->id)],
+            'default_currency' => ['required','string','size:3', Rule::in(config('currencies.supported'))],
         ];
     }
 }

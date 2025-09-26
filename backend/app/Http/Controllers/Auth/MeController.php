@@ -12,8 +12,9 @@ class MeController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $user = $request->user()->fresh();
         return response()->json([
-           'user'=>$request->user()->only('id','name','email','role')
+            'user' => $user->only('id','name','email','default_currency','role'),
         ]);
     }
 }
