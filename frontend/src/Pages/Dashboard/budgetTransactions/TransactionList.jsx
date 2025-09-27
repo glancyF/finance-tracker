@@ -1,4 +1,5 @@
-
+import { MdEditNote } from 'react-icons/md';
+import { MdOutlinePlaylistRemove } from 'react-icons/md';
 export default function TransactionList ({items,currency="USD",onEdit,onDelete,loading}){
     if(loading) return <div className="text-slate-500">Loading...</div>
     if(!items.length) return <div className="text-slate-500">No transactions yet</div>
@@ -29,8 +30,8 @@ export default function TransactionList ({items,currency="USD",onEdit,onDelete,l
                         </td>
                         <td className="px-4 py-2 break-words max-w-[32ch]">{t.comment || "—"}</td>
                         <td className="px-4 py-2 text-right">
-                            <button className="mr-2 text-emerald-700 hover:underline" onClick={() => onEdit(t)}>Edit</button>
-                            <button className="text-red-700 hover:underline" onClick={() => onDelete(t.id)}>Delete</button>
+                            <button className="mr-2 text-emerald-700 " onClick={() => onEdit(t)}><MdEditNote className="w-6 h-6 hover:text-emerald-500"/></button>
+                            <button className="text-red-700 hover:underline" onClick={() => onDelete(t.id)}><MdOutlinePlaylistRemove className="w-6 h-6 hover:text-red-500"/></button>
                         </td>
                     </tr>
                 ))}
