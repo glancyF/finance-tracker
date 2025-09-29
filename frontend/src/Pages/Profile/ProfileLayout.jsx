@@ -4,6 +4,7 @@ import Header from "../../components/layout/Header/Header.jsx";
 import { useAuth } from "../../features/auth/AuthContext.jsx";
 import { auth } from "../../lib/authApi.js";
 import Item from "../../components/ui/Item.jsx";
+import Footer from "../../components/layout/Footer/Footer.jsx";
 
 
 export default function ProfileLayout (){
@@ -48,6 +49,8 @@ export default function ProfileLayout (){
                     </section>
                 </div>
             </main>
+
+            <Footer/>
         </>
     )
 

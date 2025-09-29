@@ -1,28 +1,36 @@
-
-import Logo from "./Logo.jsx"
-import NavLinks from "./NavLinks.jsx"
-import Profile from "./Profile.jsx"
+import Logo from "./Logo.jsx";
+import NavLinks from "./NavLinks.jsx";
+import Profile from "./Profile.jsx";
 import Login from "./Login.jsx";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../features/auth/AuthContext.jsx"
+import { useAuth } from "../../../features/auth/AuthContext.jsx";
+import {useTitle} from "../../../hooks/useTitle.js";
 
-export default function Header({title = "Main"}){
-   const {user,loading} = useAuth();
-
-
+export default function Header({ title = "Main" }) {
+    const { user, loading } = useAuth();
+    useTitle(title);
     return (
-        <header className="sticky top-0 z-20 border-b-4 border-green-800 backdrop-blur supports-[backdrop-filter]:bg-[#22c55e]/60 bg-[#22c55e]/90">
-        <div className="mx-auto max-w-6xl px-3 sm:px-4">
-                <div className="flex h-16 items-center justify-between">
+        <header
+            className="
+    sticky top-0 z-50
+    bg-white/80
+    backdrop-blur-xl supports-[backdrop-filter]:bg-white/60
+    border-b border-[#F0F0F0]
+  "
+        >
+
+            <div className="mx-auto max-w-7xl px-4">
+                <div className="flex h-14 items-center justify-between">
                     <div className="flex items-center gap-6">
-                        <Logo/>
-                        <NavLinks/>
-                        <title>{title}</title>
+                        <Logo />
+                        <nav className="flex flex-col gap-2 md:flex-row md:gap-4">
+                            <NavLinks />
+                        </nav>
                     </div>
-                    {loading ? null : (user ? <Profile/> : <Login/>)}
+                    <div className="flex items-center gap-3">
+                        {loading ? null : user ? <Profile /> : <Login />}
+                    </div>
                 </div>
             </div>
         </header>
-
-    )
+    );
 }
