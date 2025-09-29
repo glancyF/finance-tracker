@@ -1,17 +1,9 @@
-import { useEffect } from "react";
 import { useAuth } from "../../features/auth/AuthContext.jsx";
-import { auth } from "../../lib/authApi.js";
 import Spinner from "../../components/ui/Spinner.jsx";
 import CurrencySelect from "./CurrencySelect.jsx";
 
 export default function ProfileOverview() {
-    const { user, setUser } = useAuth();
-
-    useEffect(() => {
-        auth.me()
-            .then((r) => setUser(r.user))
-            .catch(() => setUser(null));
-    }, [setUser]);
+    const { user } = useAuth();
 
     if (!user) return <p><Spinner/></p>;
 

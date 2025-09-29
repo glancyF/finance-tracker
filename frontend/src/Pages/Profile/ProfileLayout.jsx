@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import Header from "../../components/layout/Header/Header.jsx";
 import { useAuth } from "../../features/auth/AuthContext.jsx";
 import { auth } from "../../lib/authApi.js";
@@ -10,14 +10,17 @@ import Footer from "../../components/layout/Footer/Footer.jsx";
 export default function ProfileLayout (){
     const nav = useNavigate();
     const {user,setUser} = useAuth();
+    const [logOutLoading,setLogOutLoading] = useState(false);
     useEffect(()=> {
        if(!user) nav("/login",{replace:true});
     },[user,nav]);
 
     async function onLogout(){
         try{
+            setLogOutLoading(true);
             await auth.logout();
         }finally {
+            setLogOutLoading(false);
             setUser(null);
             nav("/login",{replace:true})
         }
@@ -31,10 +34,11 @@ export default function ProfileLayout (){
                         <div className="mb-3 flex items-center justify-between">
                             <p className="px-2 text-xl font-semibold text-slate-600">Profile</p>
                             <button
+                                disabled={logOutLoading}
                                 onClick={onLogout}
-                                className="rounded-lg bg-red-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-red-600"
+                                className="rounded-lg bg-red-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-red-600 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-red-500"
                             >
-                                Logout
+                                {logOutLoading ? "Logging out…" : "Logout"}
                             </button>
                         </div>
                         <nav className="space-y-1">
