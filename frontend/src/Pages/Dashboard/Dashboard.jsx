@@ -4,6 +4,7 @@ import Header from "../../components/layout/Header/Header.jsx";
 import {Outlet, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import Item from "../../components/ui/Item.jsx";
+import Footer from "../../components/layout/Footer/Footer.jsx";
 
 export default function Dashboard(){
     const {user,setUser} = useAuth();
@@ -31,6 +32,8 @@ export default function Dashboard(){
                 <Outlet />
             </section>
         </main>
+            <Footer/>
         </>
+
     );
 }

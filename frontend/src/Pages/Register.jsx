@@ -10,6 +10,7 @@ import { isEmail, isName, isStrongPassword, passMatches } from "../utils/validat
 import mapServerErrors from "../utils/mapServerErrors.js";
 import { auth } from "../lib/authApi.js";
 import { useAuth } from "../features/auth/AuthContext.jsx";
+import Footer from "../components/layout/Footer/Footer.jsx";
 
 export default function Register(){
     const nav = useNavigate();
@@ -160,6 +161,7 @@ export default function Register(){
                     </p>
                 </form>
             </main>
+            <Footer/>
         </>
     )
 

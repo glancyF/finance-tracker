@@ -10,6 +10,7 @@ import { isEmail} from "../utils/validators.js";
 import mapServerErrors from "../utils/mapServerErrors.js";
 import { auth } from "../lib/authApi.js";
 import { useAuth } from "../features/auth/AuthContext.jsx";
+import Footer from "../components/layout/Footer/Footer.jsx";
 export default function Login (){
     const nav = useNavigate();
     const {user, setUser} = useAuth();
@@ -99,6 +100,7 @@ export default function Login (){
                 </p>
             </form>
         </main>
+            <Footer/>
         </>
     );
 }
