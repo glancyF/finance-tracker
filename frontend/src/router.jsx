@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./features/auth/AuthContext.jsx";
 import RequireAuth from "./routes/RequireAuth.jsx";
 import PublicOnly from "./routes/PublicOnly.jsx";
-import Home from "./pages/Home.jsx";
+import Home from "./Pages/Home/Home.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
@@ -16,7 +16,7 @@ function Router (){
     return (
         <AuthProvider>
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<PublicOnly><Home /></PublicOnly>} />
                 <Route path="/register" element={<PublicOnly><Register /></PublicOnly>} />
                 <Route path="/login" element={<PublicOnly><Login /></PublicOnly>} />
 

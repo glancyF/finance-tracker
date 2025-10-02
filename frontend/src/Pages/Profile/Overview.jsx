@@ -4,9 +4,7 @@ import CurrencySelect from "./CurrencySelect.jsx";
 
 export default function ProfileOverview() {
     const { user } = useAuth();
-
     if (!user) return <p><Spinner/></p>;
-
     return (
         <div className="space-y-6">
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 md:p-6 shadow-sm">

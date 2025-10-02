@@ -23,8 +23,6 @@ export default function Dashboard(){
                 </div>
                 <nav className="space-y-1 flex-1">
                     <Item to="/dashboard" budgetGroup>Budget</Item>
-                    <Item to="/dashboard/statistics" exact>Stats</Item>
-                    <Item to="*">Test</Item>
                 </nav>
 
             </aside>
