@@ -1,10 +1,15 @@
 import { useAuth } from "../../features/auth/AuthContext.jsx";
 import Spinner from "../../components/ui/Spinner.jsx";
 import CurrencySelect from "./CurrencySelect.jsx";
+import {Navigate} from "react-router-dom";
 
 export default function ProfileOverview() {
-    const { user } = useAuth();
-    if (!user) return <p><Spinner/></p>;
+    const { user,loading } = useAuth();
+    if (loading) return <p><Spinner/></p>;
+
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
     return (
         <div className="space-y-6">
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 md:p-6 shadow-sm">
