@@ -16,8 +16,8 @@ export default function Dashboard(){
     return (
         <>
         <Header title="Dashboard"/>
-        <main className="mx-auto max-w-7xl py-8 grid grid-cols-[240px_1fr] gap-6">
-            <aside className="sticky top-20 h-[calc(100vh-5rem)] rounded-2xl border border-emerald-200 bg-white p-3 flex flex-col">
+            <main data-dashboard className="mx-auto max-w-7xl py-8 grid grid-cols-[240px_1fr] gap-6">
+                <aside data-dashboard-aside className="sticky top-20 h-[calc(100vh-5rem)] rounded-2xl border border-emerald-200 bg-white p-3 flex flex-col">
                 <div className="mb-3 flex items-center justify-between">
                     <p className="px-2 text-xl font-semibold text-slate-600">Dashboard sections</p>
                 </div>
@@ -26,9 +26,9 @@ export default function Dashboard(){
                 </nav>
 
             </aside>
-            <section className="rounded-2xl border border-emerald-200 bg-white p-4 md:p-6">
-                <Outlet />
-            </section>
+                <section data-dashboard-content className="rounded-2xl border border-emerald-200 bg-white p-4 md:p-6">
+                    <Outlet />
+                </section>
         </main>
             <Footer/>
         </>

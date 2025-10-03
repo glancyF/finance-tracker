@@ -16,11 +16,11 @@ export default function BudgetCard({id,name,amount,currency="USD", onDelete,onEd
                  nav(`/dashboard/${id}`);
              }}
         >
-            <div className="absolute top-2 right-2 flex flex-col items-end space-y-1">
+            <div className="md:absolute md:top-2 md:right-2 flex md:flex-col items-end md:space-y-1 gap-2 card-actions">
                 <DeleteBudgetButton id={id} onDelete={onDelete}/>
                 <EditBudgetButton id={id} name={name} onEdit={onEditItem}/>
             </div>
-            <p className="text-lg font-semibold text-slate-700 pr-8">{name}</p>
+            <p className="text-lg font-semibold text-slate-700 pr-0 md:pr-8 truncate">{name}</p>
             <p className="mt-2 text-sm text-slate-500">amount</p>
             <p className="mt-1 text-2xl font-bold text-emerald-700">
                 {new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(amount)} {currency}
