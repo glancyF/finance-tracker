@@ -5,7 +5,7 @@ export default function TransactionList ({items,currency="USD",onEdit,onDelete,l
     if(!items.length) return <div className="text-slate-500">No transactions yet</div>
 
     return(
-        <div className="overflow-x-auto rounded-2xl border border-emerald-200 bg-white">
+        <div data-trx-table className="overflow-x-auto rounded-2xl border border-emerald-200 bg-white">
             <table className="min-w-full table-fixed border-separate border-spacing-0">
                 <thead className="bg-emerald-50 text-slate-700">
                 <tr>
@@ -20,16 +20,16 @@ export default function TransactionList ({items,currency="USD",onEdit,onDelete,l
                 <tbody>
                 {items.map(t=>(
                     <tr key={t.id} className="border-t">
-                        <td className="px-4 py-2">{t.date}</td>
-                        <td className="px-4 py-2 break-words max-w-[16ch]">{t.category?.name || "—"}</td>
-                        <td className="px-4 py-2">
+                        <td data-label="Date" className="px-4 py-2">{t.date}</td>
+                        <td data-label="Category" className="px-4 py-2 break-words max-w-[16ch]">{t.category?.name || "—"}</td>
+                        <td data-label="Type" className="px-4 py-2">
                             {t.type === "income" ? <span className="text-emerald-700">↑ income</span> : <span className="text-red-700">↓ expense</span>}
                         </td>
-                        <td className="px-4 py-2 text-right">
+                        <td data-label="Amount" className="px-4 py-2 text-right">
                             {new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(t.amount)} {currency}
                         </td>
-                        <td className="px-4 py-2 break-words max-w-[32ch]">{t.comment || "—"}</td>
-                        <td className="px-4 py-2 text-right">
+                        <td data-label="Comment" className="px-4 py-2 break-words max-w-[32ch]">{t.comment || "—"}</td>
+                        <td data-label="Actions" className="px-4 py-2 text-right">
                             <button className="mr-2 text-emerald-700 " onClick={() => onEdit(t)}><MdEditNote className="w-6 h-6 hover:text-emerald-500"/></button>
                             <button className="text-red-700 hover:underline" onClick={() => onDelete(t.id)}><MdOutlinePlaylistRemove className="w-6 h-6 hover:text-red-500"/></button>
                         </td>

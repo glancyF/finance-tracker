@@ -33,7 +33,7 @@ export default function Budget() {
     }, [])
 
     if(loading) {
-        return (<div><Spinner/></div>)
+        return (<div className="center-loading"><Spinner/></div>);
     }
 
     return (

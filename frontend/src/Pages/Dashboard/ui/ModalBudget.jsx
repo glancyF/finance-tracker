@@ -26,14 +26,14 @@ export default function ModalBudget ({open,onClose,title="",children}){
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 budget-modal"
             onKeyDown={onKeyDown}
             aria-modal="true"
             role="dialog"
             aria-label={title || "Dialog"}
         >
             <div className="absolute inset-0 bg-black/30" onClick={onClose}/>
-                <div ref={dialogRef} tabIndex={1} className="relative z-10 w-full max-w-md rounded-2xl bg-white p-5 shadow-xl outline-none">
+                <div  ref={dialogRef} tabIndex={1} className="relative z-10 w-full max-w-md rounded-2xl bg-white p-5 shadow-xl outline-none budget-modal__content">
 
                     {title && (
                         <h2 className="mb-3 text-lg font-semibold text-slate-800">

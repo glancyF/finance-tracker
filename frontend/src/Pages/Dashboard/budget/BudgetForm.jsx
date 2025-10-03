@@ -39,7 +39,7 @@ export default function BudgetForm({initialValues,onSubmitSuccess, onCancel, mod
 
     };
     return (
-        <form onSubmit={onSubmit} className="space-y-4" noValidate>
+        <form onSubmit={onSubmit} className="space-y-4" noValidate data-budget-form>
             {info && (
                 <div className="rounded-lg px-3 py-2 text-sm bg-blue-50 text-blue-700">
                     {info}
@@ -116,7 +116,7 @@ export default function BudgetForm({initialValues,onSubmitSuccess, onCancel, mod
                 </div>
             )}
 
-            <div className="mt-2 flex items-center gap-3">
+            <div className="mt-2 flex items-center gap-3" data-budget-form-actions>
                 <button
                     type="button"
                     onClick={onCancel}

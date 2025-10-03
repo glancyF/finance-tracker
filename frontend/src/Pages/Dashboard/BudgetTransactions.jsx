@@ -7,12 +7,13 @@ import Button from "../../components/ui/Button.jsx";
 import TransactionList from "./budgetTransactions/TransactionList.jsx";
 import TransactionDialog from "./budgetTransactions/TransactionDialog.jsx";
 import Spinner from "../../components/ui/Spinner.jsx";
+import Pager from "./budgetTransactions/Pager.jsx";
 
 
 export default function BudgetTransactions() {
     const {id} = useParams();
     const budgetId = Number(id);
-    const { items, loading, error, add, update, remove } = useTransactions(budgetId);
+    const { items,meta,page ,setPage,loading, error, add, update, remove } = useTransactions(budgetId);
     const [budget,setBudget] = useState(null);
     const [open,setOpen] = useState(false);
     const [editItem, setEditItem] = useState(null);
@@ -51,7 +52,7 @@ export default function BudgetTransactions() {
         return <Navigate to='/dashboard' replace/>
     }
     return(
-        <div className="mx-auto max-w-5xl px-4 py-6 space-y-6">
+        <div data-trx-page className="mx-auto max-w-5xl px-4 py-6 flex flex-col gap-6">
             {error && <Alert variant="error">{error}</Alert>}
             <div className="flex items-center justify-between">
                 <div>
@@ -74,6 +75,8 @@ export default function BudgetTransactions() {
                 onEdit={(t) => {setEditItem(t); setOpen(true)}}
                 onDelete={(id)=> {if (confirm("Delete transaction")) remove(id)}}
                 loading={loading}/>
+
+            <Pager meta={meta} page={page} setPage={setPage}/>
             <TransactionDialog
                 open={open}
                 onClose={() => setOpen(false)}

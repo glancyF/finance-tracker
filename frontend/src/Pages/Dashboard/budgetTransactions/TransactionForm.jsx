@@ -85,7 +85,7 @@ export default function TransactionForm({ budgetId, currency="USD", initialValue
 
 
     return (
-        <form onSubmit={submit} noValidate className="space-y-4">
+        <form data-trx-form onSubmit={submit} noValidate className="space-y-4">
             <div className="flex gap-3">
                 <label className="flex items-center gap-2">
                     <input
@@ -226,7 +226,7 @@ export default function TransactionForm({ budgetId, currency="USD", initialValue
                 />
             </Field>
 
-            <div className="mt-2 flex items-center gap-3">
+            <div  data-trx-actions className="mt-2 flex items-center gap-3">
                 <button
                     type="button"
                     onClick={onCancel}

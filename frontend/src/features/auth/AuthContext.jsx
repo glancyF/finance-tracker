@@ -13,7 +13,8 @@ export function AuthProvider({children}) {
         (async () => {
             try {
                 const data = await auth.me({signal: ctrl.signal});
-                setUser(data);
+                const normalized = data?.user ?? data;
+                setUser(normalized ?? null);
             } catch {
                  setUser(null);
             } finally {

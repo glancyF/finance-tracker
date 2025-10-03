@@ -1,0 +1,236 @@
+@media (max-width: 768px) {
+    [data-dashboard]{
+        display:grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        padding: 1rem 0.75rem !important;
+        max-width: 100% !important;
+        margin: 0 auto;
+    }
+    [data-dashboard-aside]{
+        position: static !important;
+        top: auto !important;
+        height: auto !important;
+        border-radius: 0.75rem !important;
+        padding: 0.75rem !important;
+    }
+    [data-dashboard-aside] nav{
+        display:flex !important;
+        gap:.5rem;
+        overflow-x:auto;
+        scrollbar-width:none;
+    }
+    [data-dashboard-aside] nav::-webkit-scrollbar{ display:none; }
+    [data-dashboard-content]{
+        border-radius:0.75rem !important;
+        padding:0.75rem !important;
+    }
+
+    .center-loading{
+        display:flex; align-items:center; justify-content:center; padding:4rem 0;
+    }
+    [data-budget-grid]{
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+    }
+    [data-budget-cardwrap]{
+        height: auto !important;
+    }
+    [data-budget-grid] > *{
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .card-actions{
+        position: static !important;
+        margin-top: .5rem;
+        display: flex !important;
+        gap: .5rem;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .budget-modal{
+        align-items: flex-end !important;
+        padding: 0 !important;
+    }
+    .budget-modal__content{
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        border-radius: 1rem 1rem 0 0 !important;
+        padding: 1rem !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+    }
+    .budget-card__title{ padding-right: 0 !important; }
+    .card-actions + p {
+        padding-right: 0 !important;
+    }
+
+    [data-budget-cardwrap] .pr-8 {
+        padding-right: 0 !important;
+    }
+    .budget-modal{ align-items: flex-end !important; padding: 0 !important; }
+    .budget-modal__content{
+        width:100% !important; max-width:none !important;
+        border-radius: 1rem 1rem 0 0 !important;
+        padding: 1rem !important;
+        max-height: 90vh !important; overflow-y:auto !important;
+        padding-bottom: calc(env(safe-area-inset-bottom) + 1rem) !important;
+    }
+
+    [data-budget-form] { row-gap: .75rem !important; }
+
+    [data-budget-form] input,
+    [data-budget-form] select,
+    [data-budget-form] button {
+        font-size: 16px !important;
+    }
+
+    [data-budget-form-actions]{
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: .5rem !important;
+    }
+    [data-budget-form-actions] > button{
+        width: 100% !important;
+        min-height: 44px;
+    }
+
+    [data-budget-summary]{ gap: .5rem !important; }
+    [data-budget-summary] .text-slate-600{ font-size: 14px; }
+
+    .card-actions{
+        position: static !important;
+        top: auto !important; right: auto !important;
+        margin-top: .25rem;
+        display: flex !important; gap: .5rem; align-items: center; justify-content: flex-end;
+    }
+    [data-trx-modal]{
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 1rem !important;
+    }
+    [data-trx-modal-content]{
+        width: min(92vw, 28rem) !important;
+        max-height: calc(100dvh - 2rem) !important;
+        overflow-y: auto !important;
+        border-radius: 1rem !important;
+        padding: 1rem !important;
+        transform: translateY(-2vh);
+    }
+    [data-trx-form] { row-gap: .75rem !important; }
+    [data-trx-form] input,
+    [data-trx-form] select,
+    [data-trx-form] button { font-size: 16px !important; }
+
+    [data-trx-type]{
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: .5rem !important;
+    }
+    [data-trx-type] label{
+        padding: .5rem .75rem; border: 1px solid #d1fae5; border-radius: .5rem;
+    }
+
+    [data-trx-actions]{
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: .5rem !important;
+    }
+    [data-trx-actions] > *{
+        width: 100% !important;
+        min-height: 44px;
+    }
+
+    [data-trx-table] table{ display: block; border-spacing: 0; }
+    [data-trx-table] thead{ display: none; }
+    [data-trx-table] tbody{ display: block; }
+
+    [data-trx-table] tr{
+        display: block;
+        margin: .5rem;
+        padding: .75rem;
+        background: #fff;
+        border: 1px solid #a7f3d0;
+        border-radius: .75rem;
+    }
+
+    [data-trx-table] td{
+        display: flex; justify-content: space-between; gap: .75rem;
+        padding: .25rem 0;
+    }
+    [data-trx-table] td::before{
+        content: attr(data-label);
+        font-weight: 600; color: #475569;
+        margin-right: .75rem;
+    }
+    [data-trx-table] td[data-label="Actions"]{
+        justify-content: flex-end;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-actions{
+        position: absolute !important;
+        top: 0.5rem !important;
+        right: 0.5rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-end !important;
+        gap: 0.25rem !important;
+    }
+
+    .budget-modal{
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 1rem !important;
+    }
+
+    .budget-modal__content{
+        width: min(92vw, 28rem) !important;
+        max-width: 28rem !important;
+        max-height: calc(100dvh - 2rem) !important;
+        overflow-y: auto !important;
+
+        border-radius: 1rem !important;
+        padding: 1rem !important;
+        transform: translateY(-2vh);
+    }
+    [data-budget-form-actions]{ display:flex !important; gap:.75rem !important; }
+    [data-budget-form-actions] > button{ width:auto !important; }
+
+    .card-actions{
+        position:absolute !important; top:.5rem !important; right:.5rem !important;
+        display:flex !important; flex-direction:column !important; align-items:flex-end !important; gap:.25rem !important;
+    }
+
+    [data-trx-modal]{
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    [data-trx-modal-content]{
+        width: 32rem !important;
+        max-width: none !important;
+        transform: translateY(-22vh);
+    }
+    [data-trx-page]{
+        min-height: calc(100vh - 10rem);
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+
+    [data-pager-fixed]{
+        position: static !important;
+        margin-top: auto !important;
+        width: 100% !important;
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+}

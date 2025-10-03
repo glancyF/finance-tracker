@@ -5,13 +5,17 @@ import { CURRENCIES } from "../../utils/budgetConstants.js";
 
 export default function CurrencySelect() {
     const {user, setUser} = useAuth();
-    const [value, setValue] = useState(user?.default_currency || "USD");
+    const [value, setValue] = useState(null);
     const [saving, setSaving] = useState(false);
     const [msg, setMsg] = useState("");
 
     useEffect(() => {
-        setValue(user?.default_currency || "USD");
-    }, [user?.default_currency]);
+        if (user?.default_currency != null) {
+            setValue(user.default_currency);
+        } else {
+            setValue(null);
+        }
+    }, [user]);
 
     async function onChange(e) {
         const prev = value;
@@ -27,7 +31,7 @@ export default function CurrencySelect() {
             if (!u?.id) throw new Error('Bad payload');
 
             setUser(u);
-            setValue(u.default_currency || next);
+            setValue(u.default_currency ?? next);
             setMsg("Saved");
             setTimeout(() => setMsg(""), 1500);
         } catch (err) {
@@ -44,11 +48,16 @@ export default function CurrencySelect() {
             <label className="block text-sm font-medium text-slate-600 mb-1">Preferred currency</label>
             <select
                 className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 disabled:opacity-60"
-                value={value}
+                value={value ?? ""}
                 onChange={onChange}
-                disabled={saving}
+                disabled={saving || value === null}
             >
-                {CURRENCIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                {value === null ? (
+                    <option value="">Loading…</option>
+                ):(
+                    CURRENCIES.map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                )))}
             </select>
             <div className="h-5 mt-1 text-sm text-slate-500">{msg}</div>
         </div>
