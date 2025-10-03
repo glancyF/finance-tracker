@@ -207,4 +207,30 @@
         position:absolute !important; top:.5rem !important; right:.5rem !important;
         display:flex !important; flex-direction:column !important; align-items:flex-end !important; gap:.25rem !important;
     }
+
+    [data-trx-modal]{
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    [data-trx-modal-content]{
+        width: 32rem !important;
+        max-width: none !important;
+        transform: translateY(-22vh);
+    }
+    [data-trx-page]{
+        min-height: calc(100vh - 10rem);
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+
+    [data-pager-fixed]{
+        position: static !important;
+        margin-top: auto !important;
+        width: 100% !important;
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
 }

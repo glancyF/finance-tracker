@@ -20,26 +20,22 @@ export default function TransactionDialog ({open,onClose,title,children,...formP
     return (
         <div
             className="
-        fixed inset-0 z-50
-        flex items-end justify-center           /* <- привязываем вниз по умолчанию */
-        bg-black/30
-        p-0 md:p-4                              /* на мобиле без внешних полей */
+        fixed inset-0 z-50 bg-black/30
+        flex items-end justify-center p-0
+        md:items-center md:p-4
       "
             onMouseDown={onClose}
-            aria-modal="true"
             role="dialog"
+            aria-modal="true"
             aria-label={title || "Dialog"}
         >
-            <div
+            <div data-trx-modal-content
                 className="
-          w-full max-w-none rounded-t-2xl bg-white p-4  /* bottom-sheet на мобиле */
-          md:max-w-lg md:rounded-2xl md:p-4             /* на ПК — центрированная карточка */
+          w-full max-w-none rounded-t-2xl bg-white p-4
+          max-h-[90vh] overflow-y-auto
+          md:max-w-lg md:rounded-2xl md:max-h-none md:overflow-visible
         "
-                style={{
-                    paddingBottom: "max(1rem, env(safe-area-inset-bottom))",
-                    maxHeight: "90vh",
-                    overflowY: "auto",
-                }}
+                style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
                 onMouseDown={(e) => e.stopPropagation()}
             >
                 <div className="mb-3 flex items-center justify-between">

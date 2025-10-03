@@ -1,39 +1,50 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { transactionsApi } from "../lib/transactionsApi";
 
-export default function useTransactions(budgetId) {
-    const [items,setItems] = useState([]);
-    const [meta, setMeta] = useState({ total: 0, per_page: 20, current_page: 1 });
-    const [loading,setLoading] = useState(true);
-    const [error,setError] = useState("");
-    const load = useCallback(async(page  =1) =>{
-        try{
-            setError("");
-            setLoading(true);
-            const res = await transactionsApi.list(budgetId,{page});
+export default function useTransactions(budgetId, { initialPage = 1, perPage = 20, initialSort = "-date" } = {}) {
+    const [items, setItems] = useState([]);
+    const [meta, setMeta]   = useState({ total: 0, per_page: perPage, current_page: initialPage, last_page: 1, from: 0, to: 0 });
+    const [page, setPage]   = useState(initialPage);
+    const [sort, setSort]   = useState(initialSort);
+    const [loading, setLoading] = useState(true);
+    const [error, setError]     = useState("");
+
+    const load = useCallback(async () => {
+        if (!budgetId) return;
+        setLoading(true);
+        setError("");
+        try {
+            const res = await transactionsApi.list(budgetId, { page, per_page: meta.per_page, sort });
             setItems(res.items);
             setMeta(res.meta);
-        }catch (e){
+        } catch (e) {
             setError(e?.message || "Failed to load transactions");
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
-    },[budgetId]);
-    useEffect(() => { if (budgetId) load(1); }, [budgetId, load]);
-    const add = useCallback(async(payload) =>{
-        const res = await transactionsApi.create(budgetId,payload);
-        await load(meta.current_page);
-        return res;
-    },[budgetId,load,meta.current_page]);
+    }, [budgetId, page, sort, meta.per_page]);
 
-    const update = useCallback(async(id,patch) =>{
-        await transactionsApi.update(id,patch);
-        await load(meta.current_page);
-    },[load,meta.current_page]);
-    const remove =useCallback(async(id) =>{
+    useEffect(() => { load(); }, [load]);
+
+
+    const add = useCallback(async (payload) => {
+        await transactionsApi.create(budgetId, payload);
+        load();
+    }, [budgetId, load]);
+
+    const update = useCallback(async (id, patch) => {
+        await transactionsApi.update(id, patch);
+        load();
+    }, [load]);
+
+    const remove = useCallback(async (id) => {
         await transactionsApi.remove(id);
-        setItems(prev => prev.filter(i => i.id !== id));
-    },[])
-    return { items, meta, loading, error, load, add, update, remove };
+        if (items.length === 1 && page > 1) setPage(page - 1);
+        else load();
+    }, [items.length, page, load]);
+
+    return {
+        items, meta, page, setPage, sort, setSort, loading, error,
+        add, update, remove,
+    };
 }
