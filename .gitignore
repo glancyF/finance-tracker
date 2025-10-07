@@ -15,6 +15,7 @@
 /backend/storage/framework/*
 /backend/storage/logs/*
 /backend/.env
+/backend/.env.example
 
 # Logs
 npm-debug.log*
