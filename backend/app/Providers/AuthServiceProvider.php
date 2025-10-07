@@ -24,7 +24,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Тут можно определять свои Gate при необходимости
-        // Gate::define('view-admin', fn($user) => $user->is_admin);
     }
 }
