@@ -62,7 +62,7 @@ Key paths:
 
 ```bash
 cd backend
-cp .env.example .env
+cp .env .env
 # configure DB_* in .env
 composer install
 php artisan key:generate

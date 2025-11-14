@@ -1,7 +1,4 @@
 import Header from "../../components/layout/Header/Header.jsx";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../features/auth/AuthContext.jsx";
 import Footer from "../../components/layout/Footer/Footer.jsx";
 import Carousel from "./ui/Carousel.jsx";
 export default function Home(){
